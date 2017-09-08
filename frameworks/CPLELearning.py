@@ -116,7 +116,7 @@ class CPLELearningModel(BaseEstimator):
         try:
             # labeled discriminative log likelihood
             labeledDL = -sklearn.metrics.log_loss(labeledy, P)
-        except Exception, e:
+        except Exception as e:
             print e
             P = model.predict_proba(labeledData)
 
@@ -128,7 +128,7 @@ class CPLELearningModel(BaseEstimator):
             eps = 1e-15
             unlabeledP = numpy.clip(unlabeledP, eps, 1 - eps)
             unlabeledDL = numpy.average((unlabeledWeights*numpy.vstack((1-unlabeledy, unlabeledy)).T*numpy.log(unlabeledP)).sum(axis=1))
-        except Exception, e:
+        except Exception as e:
             print e
             unlabeledP = model.predict_proba(unlabeledData)
         
@@ -204,7 +204,7 @@ class CPLELearningModel(BaseEstimator):
             opt.set_maxeval(self.max_iter)
             self.bestsoftlbl = opt.optimize(lblinit)
             print " max_iter exceeded."
-        except Exception, e:
+        except Exception as e:
             print e
             self.bestsoftlbl = self.bestlbls
             
